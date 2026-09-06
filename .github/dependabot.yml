@@ -1,0 +1,28 @@
+# https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference
+version: 2
+updates:
+  # The `uv` ecosystem (not `pip`) is what keeps the committed uv.lock current.
+  # CI still installs unlocked from pyproject.toml on purpose: this is a library,
+  # so an upstream release that breaks us should surface immediately rather than
+  # waiting for a lockfile bump.
+  - package-ecosystem: "uv"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    cooldown:
+      default-days: 7
+    groups:
+      python-packages:
+        patterns:
+          - "*"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    cooldown:
+      default-days: 7
+    groups:
+      github-actions:
+        patterns:
+          - "*"
